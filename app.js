@@ -52,7 +52,18 @@ app.controller('MainCtrl', ['$scope', 'posts', function ($scope, posts) {
 app.controller('PostsCtrl', 
                ['$scope', 'posts', '$stateParams', function ($scope, posts, $stateParams) {
     $scope.post = posts.posts[$stateParams.id];
-    $scope.incrementUpvotes = function (commentId) {
-        $scope.post.comments[commentId].upvotes += 1;
+    $scope.incrementUpvotes = function (comment) {
+        comment.upvotes += 1;
+    };
+    $scope.addComment = function() {
+        if ($scope.body === "") {
+            return;
+        }
+        $scope.post.comments.push({
+            body: $scope.body,
+            author: 'user',
+            upvotes: 0
+        });
+        $scope.body = '';
     };
 }]);
